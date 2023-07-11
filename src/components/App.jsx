@@ -7,13 +7,10 @@ import React, { Component } from 'react';
 class App extends Component {
 
 state = {
-  todos:{Good: 0,
+  Good: 0,
   Neutral:0,
   Bad:0,
-  Total:0,
-  PositiveFeedback:0
-},
-emptyTodos:true,
+  
 }
 
 countTotalFeedback =(todos) =>{
@@ -32,15 +29,13 @@ countPositiveFeedbackPercentage = (todos,total) =>{
 heandlerClick = (e) => {
   const name = e.target.name;
   this.setState((prevState) => {
-    const updatedTodos = { ...prevState.todos };
+    const updatedTodos = { ...prevState };
     updatedTodos[name] += 1;
     updatedTodos.Total = this.countTotalFeedback(updatedTodos);
     updatedTodos.PositiveFeedback = this.countPositiveFeedbackPercentage(updatedTodos, updatedTodos.Total);
     prevState.emptyTodos = false;
-    return { todos: updatedTodos };
-    
+    return updatedTodos;
   });
-  
 }
 
 
@@ -48,7 +43,7 @@ heandlerClick = (e) => {
   render(){
    return <>
     <Feedback heandlerClick={this.heandlerClick}/>
-    {this.state.emptyTodos ? <Notification message={"There is no feedback"}/>: <Statistic Good={this.state.todos.Good} Neutral={this.state.todos.Neutral} Bad={this.state.todos.Bad} Total={this.state.todos.Total} PositiveFeedback={this.state.todos.PositiveFeedback}/>}
+    {this.state.Good + this.state.Neutral + this.state.Bad === 0 ? <Notification message={"There is no feedback"}/>: <Statistic Good={this.state.Good} Neutral={this.state.Neutral} Bad={this.state.Bad} />}
 
 
     </>
