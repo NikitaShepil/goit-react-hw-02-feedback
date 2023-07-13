@@ -5,7 +5,7 @@ export function Statistic ({Good,Neutral,Bad}){
 
 return(
 <div>
-    <h2>Statisic</h2>
+    
     <ul>
         <li>Good:{Good}</li>
         <li>Neatral:{Neutral}</li>
